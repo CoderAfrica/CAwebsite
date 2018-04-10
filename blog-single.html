@@ -217,6 +217,20 @@ code {
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();
+    
+// Adds the onNewComment callback to the disqus_config of the embed code
+// that sends 'New Comment' events over to Google Analytics.
+// The callback can also be used for any other analytics service like Parse.ly, Chartbeat, Mixpanel
+var disqus_config = function() {
+        this.callbacks.onNewComment = [function(comment) {
+              ga('send', {
+                'hitType': 'event',            // Required.
+                'eventCategory': 'Comments',   // Required.
+                'eventAction': 'New Comment',  // Required.
+                'eventLabel': 'New Comment'
+            });
+        }];
+  };
     </script>
     <script id="dsq-count-scr" src="//coderafrica.disqus.com/count.js" async></script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
