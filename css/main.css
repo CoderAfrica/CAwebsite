@@ -3506,13 +3506,23 @@ article.blog-single .blog-content {
  * ------------------------------------------------------------------- */
 
 .page-header {
-    background-color: #0D0A0B;
+    /* background-color: #0D0A0B; */
     background-repeat: no-repeat;
     background-position: center, center;
     padding-top: 20.4rem;
     padding-bottom: 7.2rem;
     position: relative;
     color: rgba(255, 255, 255, 0.5);
+    min-height: 50.4rem;
+}
+
+.page-header-white {
+    /* background-color: #0D0A0B; */
+    background-repeat: no-repeat;
+    background-position: center, center;
+    padding-top: 20.4rem;
+    padding-bottom: 7.2rem;
+    position: relative;
     min-height: 50.4rem;
 }
 
