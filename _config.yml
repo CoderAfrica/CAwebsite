@@ -22,7 +22,7 @@ title: CoderAfrica
 email: ayodele@coderafrica.com
 description: >- # this means to ignore newlines until "baseurl:"
   CoderAfrica Java Javascript AWS Docker Android Kubernetes
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/CAwebsite" # the subpath of your site, e.g. /blog
 url: "https://coderafrica.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gaspy05
 github_username:  ayogitng
