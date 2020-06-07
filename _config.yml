@@ -38,6 +38,10 @@ google_fonts:
   - name: "Lora"
     weights: "400,400i,700,700i"
 
+google_analytics: G-H2YQW9W77N # Google Analytics id, e.g. "UA-NNNNNNNN-N"
+disqus:
+  shortname: disqus_sLXEfpJFNo  # Disqus shortname, e.g. "my_disqus_shortname"
+
 # Build settings
 # theme: minima
 remote_theme: "mmistakes/so-simple-theme@3.2.0"
