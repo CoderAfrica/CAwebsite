@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/jekyll/update/2018/04/18/welcome-to-coderafrica.html</loc>
+<lastmod>2018-04-18T21:39:49+01:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/kotlin/2018/04/22/article-learn-kotlin-by-solving-problems.html</loc>
+<lastmod>2018-04-22T21:39:49+01:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html</loc>
+<lastmod>2018-04-22T21:39:49+01:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html</loc>
+<lastmod>2018-04-28T21:39:49+01:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/about/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+</urlset>

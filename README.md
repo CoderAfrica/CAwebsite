@@ -1,2 +1,0 @@
-# CoderAfrica
-CoderAfrica Website

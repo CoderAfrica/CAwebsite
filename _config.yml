@@ -1,0 +1,151 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you: 
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: CoderAfrica
+email: ayodele@coderafrica.com
+description: >- # this means to ignore newlines until "baseurl:"
+  CoderAfrica Java Javascript AWS Docker Android Kubernetes
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://coderafrica.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: gaspy05
+github_username:  ayogitng
+
+date_format: "%B %-d, %Y"
+read_time: true
+words_per_minute: 200
+mathjax:
+  enable: true
+google_fonts:
+  - name: "Source Sans Pro"
+    weights: "400,400i,700,700i"
+  - name: "Lora"
+    weights: "400,400i,700,700i"
+
+# Build settings
+# theme: minima
+remote_theme: "mmistakes/so-simple-theme@3.2.0"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Liquid
+liquid:
+  error_mode: strict
+
+# Build settings
+markdown: kramdown
+feed:
+  path: atom.xml
+
+# Pagination - https://jekyllrb.com/docs/pagination/
+paginate: 10
+paginate_path: /page:num/
+
+# Search
+search_full_content: false
+
+# Taxonomy pages
+category_archive_path: "/categories/#"
+tag_archive_path: "/tags/#"
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+
+# Collections
+collections:
+  recipes:
+    output: true
+    permalink: /:collection/:path/
+
+# Front Matter Defaults
+defaults:
+  # Post defaults
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: post
+      comments: true
+      share: true
+
+# Site Author
+author:
+  name: Ayodele Akingbule
+  picture: /images/author.jpg
+  twitter: "@gaspy05"
+  email: aakingbule@gmail.com
+  links:
+    - title: Twitter
+      url: https://twitter.com/gaspy05
+      icon: fab fa-twitter-square
+    - title: GitHub
+      url: https://github.com/ayogitng
+      icon: fab fa-github-square
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/akingbuleayodele/
+      icon: fab fa-github-linkedin
+
+# Footer Links
+footer_links:
+  - title: Twitter
+    url: https://twitter.com/gaspy05
+    icon: fab fa-twitter-square
+  - title: GitHub
+    url: https://github.com/ayogitng
+    icon: fab fa-github-square
+  - title: LinkedIn
+    url: https://www.linkedin.com/in/akingbuleayodele/
+    icon: fab fa-github-linkedin
+  - title: Feed
+    url: atom.xml
+    icon: fas fa-rss-square
+
+
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MVP Pattern explained with a Kotlin Android App (Part 2)! | CoderAfrica</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="MVP Pattern explained with a Kotlin Android App (Part 2)!" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Building a Kotlin App with the MVP Pattern." />
+<meta property="og:description" content="Building a Kotlin App with the MVP Pattern." />
+<link rel="canonical" href="http://localhost:4000/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html" />
+<meta property="og:url" content="http://localhost:4000/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html" />
+<meta property="og:site_name" content="CoderAfrica" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-04-28T21:39:49+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"MVP Pattern explained with a Kotlin Android App (Part 2)!","dateModified":"2018-04-28T21:39:49+01:00","datePublished":"2018-04-28T21:39:49+01:00","url":"http://localhost:4000/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html"},"description":"Building a Kotlin App with the MVP Pattern.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="CoderAfrica" href="/feed.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  mvp-pattern-explained-with-a-kotlin-android-app-part-2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+    <header class="masthead">
+  <div class="wrap">
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">CoderAfrica</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">CoderAfrica Java Javascript AWS Docker Android Kubernetes</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">MVP Pattern explained with a Kotlin Android App (Part 2)!
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><div class="author-info">
+
+<span class="read-time">7 min read</span>
+
+    <time class="page-date dt-published" datetime="2018-04-28T21:39:49+01:00"><a class="u-url" href="">April 28, 2018</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  <ul class="page-taxonomies"><li class="page-taxonomy">kotlin</li>
+  </ul>
+
+
+        
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p>Building a Kotlin App with the MVP Pattern.</p>
+
+<p>In the last article, I introduced the MVP Pattern. Here, I will jump  straight to coding to show how it is setup. The complete source code for this project is available on <a href="https://github.com/CoderAfrica/BibleApp">Github</a>.</p>
+
+<p><strong>Our App Context</strong></p>
+
+<p>To show MVP in a real world app, we will be building a bible app. It will  be an offline KJV app. UI will be 3 simple drop-down menus(Spinner).</p>
+
+<p>One for the Bible Book, another for the bible chapter and the last for the bible verse.</p>
+
+<p>Then a scrollable view(Recyclerview) under the drop-down menus that displays the book.</p>
+
+<p>The result will not be the best looking app you know. But since this was a rushed work to explain this concept, bear with me.</p>
+
+<p><img src="https://miro.medium.com/max/34/1*0kqrN0WnbkYhAbiL1zXlqw.png?q=20" alt="img" /></p>
+
+<p><img src="https://miro.medium.com/max/1080/1*0kqrN0WnbkYhAbiL1zXlqw.png" alt="img" /></p>
+
+<p><strong>App Setup</strong></p>
+
+<p>I found a KJV bible file online and wrote some code to transform it into a queryable format. So I have 3 file in my assets folder —  biblebooks.json, bibleChapter.json and bibleverse.json.</p>
+
+<p>All are 3 JSON Arrays with the following objects in this type of schema.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BibleBooks - {  "abbrev": "gn",  "bookname": "Genesis",  "noOfChapter": 50,  "bookid": 1}
+</code></pre></div></div>
+
+<p>BibleChapters</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BibleChapters - {"chapterid": 1,"noOfVerses": 31,"bookid": 1},
+</code></pre></div></div>
+
+<p>BibleVerses –</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"verseid":22,"chapterid":1,"versetext":"And God gave them his blessing, saying, Be fertile and have increase, making all the waters of the seas full, and let the birds be increased in the earth.","bookid":1}
+</code></pre></div></div>
+
+<p>Every Verse contains the bookId and ChapterID. Every Chapter contains the bookId.</p>
+
+<p><strong>App Dependencies</strong></p>
+
+<p>This App uses <a href="https://google.github.io/dagger/">Dagger2 </a>for dependency Injection, <a href="https://realm.io/docs/java/latest/">Realm </a>for Database and <a href="http://jakewharton.github.io/butterknife/">ButterKnife </a>for View Injection. Knowledge of these libraries are not required to understand this project.</p>
+
+<p><strong>Now to MVP</strong></p>
+
+<p>In MVP, the most important part is the MVP Contract. Here you state and  define the all your data models and how they would relate to the view.</p>
+
+<p>Here is the base MVP contract inherited by every View (activities or fragment) in our android application.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">MVPContract</span> <span class="p">{</span>    
+    <span class="kd">interface</span> <span class="nc">View</span>     
+    <span class="kd">interface</span> <span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span> <span class="p">:</span> <span class="nc">View</span><span class="p">&gt;</span> <span class="p">{</span>        
+        <span class="k">fun</span> <span class="nf">getView</span><span class="p">():</span> <span class="nc">V</span><span class="p">?</span>        
+        <span class="k">fun</span> <span class="nf">attachView</span><span class="p">(</span><span class="n">view</span><span class="p">:</span> <span class="nc">V</span><span class="p">)</span>        
+        <span class="k">fun</span> <span class="nf">detachView</span><span class="p">()</span>    
+    <span class="p">}</span>    
+    <span class="kd">interface</span> <span class="nc">Component</span><span class="p">&lt;</span><span class="nc">V</span> <span class="p">:</span> <span class="nc">View</span><span class="p">,</span> <span class="k">out</span> <span class="nc">P</span> <span class="p">:</span> <span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">&gt;&gt;</span> <span class="p">{</span> 
+               <span class="k">fun</span> <span class="nf">presenter</span><span class="p">():</span> <span class="nc">P</span> 
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>We have a View (Activity or Fragment). They can contain any native view  (TextView, ViewPager, NavigationView) etc. we don’t care what they  contain.</p>
+
+<p>We have the Presenter for every View. Every Presenter is instantiated with the View Object it is presenting. It has 3 core functions. Attach the  view, detach it and return a reference to it.</p>
+
+<p>Concrete implementations can add more functionalities depending the native views the activity or fragment contain and the user interactions with it.</p>
+
+<p>We have the Component. This is used by Dagger 2. I never write any app  without dependency injection. It injects the Presenter into the  View(Activity/Fragment). I wanted to do without it here but that part of me wouldn’t stop.</p>
+
+<p>Also, For Code reuse, I decided to abstract Base Abstract classes for Individual Activities and Fragments.</p>
+
+<p>Here they are.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="kd">class</span> <span class="nc">MVPDaggerRealmActivity</span><span class="p">&lt;</span><span class="nc">V</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">View</span><span class="p">,</span> 
+<span class="k">out</span> <span class="nc">P</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">&gt;,</span>       
+<span class="k">out</span> <span class="nc">C</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">Component</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">,</span> <span class="nc">P</span><span class="p">&gt;&gt;</span> 
+<span class="p">:</span> <span class="nc">AppCompatActivity</span><span class="p">(),</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">View</span> <span class="p">{</span>  
+    
+      <span class="k">protected</span> <span class="kd">val</span> <span class="py">presenter</span><span class="p">:</span> <span class="nc">P</span> <span class="k">by</span> <span class="nf">lazy</span> <span class="p">{</span> <span class="n">component</span><span class="p">.</span><span class="nf">presenter</span><span class="p">()</span> <span class="p">}</span>  
+      <span class="k">protected</span> <span class="kd">val</span> <span class="py">component</span><span class="p">:</span> <span class="nc">C</span> <span class="k">by</span> <span class="nf">lazy</span> <span class="p">{</span> <span class="nf">createComponent</span><span class="p">()</span> <span class="p">}</span>    
+      
+      <span class="k">lateinit</span> <span class="kd">var</span> <span class="py">realm</span><span class="p">:</span> <span class="nc">Realm</span>    
+      <span class="k">protected</span> <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">createComponent</span><span class="p">():</span> <span class="nc">C</span>    
+      <span class="nd">@Suppress</span><span class="p">(</span><span class="s">"UNCHECKED_CAST"</span><span class="p">)</span>    
+      <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="nc">Bundle</span><span class="p">?)</span> <span class="p">{</span>   
+               <span class="k">super</span><span class="p">.</span><span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>      
+               <span class="n">presenter</span><span class="p">.</span><span class="nf">attachView</span><span class="p">(</span><span class="k">this</span> <span class="k">as</span> <span class="nc">V</span><span class="p">)</span>     
+               <span class="n">realm</span> <span class="p">=</span> <span class="nc">Realm</span><span class="p">.</span><span class="nf">getDefaultInstance</span><span class="p">()</span>   
+       <span class="p">}</span>   
+      <span class="k">override</span> <span class="k">fun</span> <span class="nf">onDestroy</span><span class="p">()</span> <span class="p">{</span> 
+            <span class="k">super</span><span class="p">.</span><span class="nf">onDestroy</span><span class="p">()</span>      
+            <span class="n">presenter</span><span class="p">.</span><span class="nf">detachView</span><span class="p">()</span>
+            <span class="n">realm</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span> 
+          <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The Fragment MVP base class also looks like the activitiy except that it extends</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span> <span class="nc">Fragment</span><span class="p">(),</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">View</span>
+</code></pre></div></div>
+
+<p>Instead of AppCompatActivity.</p>
+
+<p>The MVPDaggerRealmActivity extends AppCompatActivity and Implements  MVPContact.View. The views and view interactions will all be defined in  the View.</p>
+
+<p>It has 2 protected fields.</p>
+
+<p><strong>1</strong> the presenter that will be injected by the dagger 2 component.</p>
+
+<p><strong>2</strong> the dagger 2 component that will be created in the concrete class that  extends this class by providing the CreateComponent function  implementation.</p>
+
+<p><strong>Finally, our business Logic</strong></p>
+
+<p>Skipping the MainActivity and jumping to the BibleFragment.</p>
+
+<p>Here is our BibleContract.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">BibleContract</span> <span class="p">{</span>  
+      <span class="kd">interface</span> <span class="nc">View</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">View</span> <span class="p">{</span>       
+           <span class="k">fun</span> <span class="nf">showInitialView</span><span class="p">(</span><span class="n">bookId</span> <span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span>
+           <span class="k">fun</span> <span class="nf">getChapterByBook</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?,</span><span class="n">chaptersInBook</span><span class="p">:</span><span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;)</span>   
+
+           <span class="k">fun</span> <span class="nf">getVersesByChapter</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?,</span> <span class="n">chapterId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?,</span> <span class="n">versesInChapter</span> <span class="p">:</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleVerses</span><span class="p">&gt;)</span>    
+        <span class="p">}</span>    
+       <span class="kd">interface</span> <span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span> <span class="p">:</span> <span class="nc">View</span><span class="p">&gt;</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">&gt;</span> <span class="p">{</span>       
+           <span class="kd">val</span> <span class="py">bibleBooks</span><span class="p">:</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleBooks</span><span class="p">&gt;</span>       
+           <span class="k">fun</span> <span class="nf">getBibleChaptersByBookId</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?):</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;</span>        <span class="k">fun</span> <span class="nf">getBibleVerseByBookIdAndChapterId</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleVerses</span><span class="p">&gt;</span>   
+         <span class="p">}</span>    
+       <span class="kd">interface</span> <span class="nc">Component</span><span class="p">&lt;</span><span class="nc">V</span> <span class="p">:</span> <span class="nc">View</span><span class="p">,</span> <span class="k">out</span> <span class="nc">P</span> <span class="p">:</span> <span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">&gt;&gt;</span> <span class="p">:</span> <span class="nc">MVPContract</span><span class="p">.</span><span class="nc">Component</span><span class="p">&lt;</span><span class="nc">V</span><span class="p">,</span> <span class="nc">P</span><span class="p">&gt;</span>
+     <span class="p">}</span>
+</code></pre></div></div>
+
+<p>This defines the contract between our BibleView and Model via the Bible Presenter.</p>
+
+<p>We can see that our bible View will show an initial view. It will can also get chapters by bookId and verses by chapterId. They are all defined  here because they are the basic things the view is expected to do.</p>
+
+<p>We will be using spinners on 1 fragment (one screen). We can decide  tomorrow to have a new fancy UI that will involve 3 screens and many  buttons clicks and animations. No matter what we do, we will still need  those 3 functions on the view because at the end of the day, we must  show an initial view, display chapters in a selected view and display  the verses in a particular selected verse.</p>
+
+<p><strong>Our Presenter</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BiblePresenter</span> 
+<span class="err">@</span><span class="n">javax</span><span class="p">.</span><span class="n">inject</span><span class="p">.</span><span class="nc">Inject</span> <span class="k">constructor</span><span class="p">(</span><span class="kd">var</span> <span class="py">context</span><span class="p">:</span> <span class="nc">Context</span><span class="p">,</span> <span class="kd">var</span> <span class="py">realm</span><span class="p">:</span> <span class="nc">Realm</span><span class="p">)</span>    <span class="p">:</span> <span class="nc">MVPPresenter</span><span class="p">&lt;</span><span class="nc">BibleContract</span><span class="err">.</span><span class="nc">View</span><span class="p">&gt;(),</span> <span class="nc">BibleContract</span><span class="p">.</span><span class="nc">Presenter</span><span class="p">&lt;</span><span class="nc">BibleContract</span><span class="err">.</span><span class="nc">View</span><span class="p">&gt;</span> <span class="p">{</span> 
+    
+       <span class="k">override</span> <span class="k">fun</span> <span class="nf">getBibleVerseByBookIdAndChapterId</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleVerses</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">realm</span><span class="p">.</span><span class="k">where</span><span class="p">(</span><span class="nc">BibleVerses</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="s">"bookid"</span><span class="p">,</span> <span class="n">bookId</span><span class="p">)</span>
+                                <span class="p">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="s">"chapterid"</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">)</span> 
+                                <span class="p">.</span><span class="nf">sort</span><span class="p">(</span><span class="s">"verseid"</span><span class="p">,</span> <span class="nc">Sort</span><span class="p">.</span><span class="nc">ASCENDING</span><span class="p">)</span>    
+                                <span class="p">.</span><span class="nf">findAll</span><span class="p">()</span> 
+       <span class="k">override</span> <span class="k">fun</span> <span class="nf">getBibleChaptersByBookId</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?):</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;</span> <span class="p">=</span>                        <span class="n">realm</span><span class="p">.</span><span class="k">where</span><span class="p">(</span><span class="nc">BibleChapter</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>    
+                                <span class="p">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="s">"bookid"</span><span class="p">,</span> <span class="n">bookId</span><span class="p">)</span>     
+                                <span class="p">.</span><span class="nf">sort</span><span class="p">(</span><span class="s">"chapterid"</span><span class="p">,</span> <span class="nc">Sort</span><span class="p">.</span><span class="nc">ASCENDING</span><span class="p">)</span>      
+                                <span class="p">.</span><span class="nf">findAll</span><span class="p">()</span> 
+       <span class="k">override</span> <span class="kd">val</span> <span class="py">bibleBooks</span><span class="p">:</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleBooks</span><span class="p">&gt;</span> 
+              <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">realm</span><span class="p">.</span><span class="k">where</span><span class="p">(</span><span class="nc">BibleBooks</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">).</span><span class="nf">findAll</span><span class="p">()</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Our BiblePresenter implement the MVPPresenter in the BibleContract Class.  It supplies the List of BibleBooks, List of BibleChapters filtered by  the bookId and the list of bible verses in the chapter.</p>
+
+<p>This is the where all data collection, transformation and interaction with the database takes place.</p>
+
+<p><strong>Finally, Our View (Bible Fragment)</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BibleFragment</span> <span class="p">:</span> <span class="nc">MVPDaggerFragment</span><span class="p">&lt;</span><span class="nc">BibleContract</span><span class="err">.</span><span class="nc">View</span><span class="p">,</span> <span class="nc">BiblePresenter</span><span class="p">,</span> <span class="nc">BibleComponent</span><span class="p">&gt;(),</span> <span class="nc">BibleContract</span><span class="p">.</span><span class="nc">View</span> <span class="p">{</span>
+</code></pre></div></div>
+
+<p>Our BibleFragment implements the MVPDaggerFragment and implements the BibleContract.View.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">fun</span> <span class="nf">createComponent</span><span class="p">():</span> <span class="nc">BibleComponent</span> <span class="p">=</span>
+         <span class="nc">DaggerBibleComponent</span><span class="p">.</span><span class="nf">builder</span><span class="p">()</span>   
+            <span class="p">.</span><span class="nf">appComponent</span><span class="p">(</span><span class="nc">App</span><span class="p">.</span><span class="n">component</span><span class="p">)</span> 
+            <span class="p">.</span><span class="nf">biblePresenterModule</span><span class="p">(</span><span class="nc">BiblePresenterModule</span><span class="p">(</span><span class="n">activity</span><span class="o">!!</span><span class="p">,</span> <span class="p">(</span><span class="n">activity</span> <span class="k">as</span> <span class="nc">MainActivity</span><span class="p">).</span><span class="n">realm</span><span class="p">))</span>
+            <span class="p">.</span><span class="nf">build</span><span class="p">()</span>
+            
+     <span class="nd">@BindView</span><span class="p">(</span><span class="nc">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">bible_book_spinner</span><span class="p">)</span><span class="nd">@JvmFieldvar</span> <span class="n">bibleBooksSpinner</span><span class="p">:</span> <span class="nc">Spinner</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+</code></pre></div></div>
+
+<p>Here is dagger doing the BibleComponent Instantiation and ButterKnife injecting the views into the fragments.</p>
+
+<p>Like I said before, android Native view determine how they accept their data. The Spinner accept data via an Array Adapter.</p>
+
+<p>To get the data for our bible spinner, we call the presenter and create a spinner array adapter with it.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">bibleBooks</span> <span class="p">=</span> <span class="n">presenter</span><span class="p">.</span><span class="n">bibleBooksval</span> <span class="n">adapter</span> <span class="p">=</span> <span class="nc">ArrayAdapter</span><span class="p">&lt;</span><span class="nc">BibleBooks</span><span class="p">&gt;(</span><span class="n">activity</span><span class="p">,</span> <span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_item</span><span class="p">,</span> <span class="n">bibleBooks</span><span class="p">)</span>
+
+<span class="n">adapter</span><span class="p">.</span><span class="nf">setDropDownViewResource</span><span class="p">(</span><span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_dropdown_item</span><span class="p">)</span><span class="n">bibleBooksSpinner</span><span class="o">?.</span><span class="n">adapter</span> <span class="p">=</span> <span class="n">adapter</span>
+</code></pre></div></div>
+
+<p>Our fragment implements the BibleContract.View interface and must implement it functions.</p>
+
+<p>In the case of the current UI we are using, 3 spinners and a Recyclerview that displays the verse text.</p>
+
+<p><strong>InitialView</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">fun</span> <span class="nf">showInitialView</span><span class="p">(</span><span class="n">bookId</span> <span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="p">{</span> 
+       <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">presenter</span><span class="p">.</span><span class="nf">getBibleVerseByBookIdAndChapterId</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">)</span> 
+    
+       <span class="n">bibleReadAdapter</span> <span class="p">=</span> <span class="nc">BibleAdapter</span><span class="p">(</span><span class="n">activity</span> <span class="k">as</span> <span class="nc">MainActivity</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>    
+       
+       <span class="n">readBibleRecyclerView</span><span class="o">!!</span><span class="p">.</span><span class="n">adapter</span> <span class="p">=</span> <span class="n">bibleReadAdapter</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>In our initialview, we set bookId and chapterId to 1. when the app is  first launched, it loads Genesis 1. All the verses in the book is gotten from the presenter getBibleVerseByBookIdAndChapterId function.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="n">presenter</span><span class="p">.</span><span class="nf">getBibleVerseByBookIdAndChapterId</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>we set the verses list into the bible adapter and set the recyclerview adapter to the bible adapter</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bibleReadAdapter</span> <span class="p">=</span> <span class="nc">BibleAdapter</span><span class="p">(</span><span class="n">activity</span> <span class="k">as</span> <span class="nc">MainActivity</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="n">readBibleRecyclerView</span><span class="o">!!</span><span class="p">.</span><span class="n">adapter</span> <span class="p">=</span> <span class="n">bibleReadAdapter</span>
+</code></pre></div></div>
+
+<p><strong>GetChapterByBookId and GetVersesByChapterId</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">fun</span> <span class="nf">getChapterByBook</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">?,</span> <span class="n">chaptersInBook</span><span class="p">:</span> <span class="nc">RealmResults</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;)</span> <span class="p">{</span>    
+    <span class="kd">val</span> <span class="py">adapter</span> <span class="p">=</span> <span class="nc">ArrayAdapter</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;(</span><span class="n">activity</span><span class="p">,</span> <span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_item</span><span class="p">,</span> <span class="n">chaptersInBook</span><span class="p">)</span><span class="n">adapter</span><span class="p">.</span><span class="nf">setDropDownViewResource</span><span class="p">(</span><span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_dropdown_item</span><span class="p">)</span>
+    <span class="n">chapterSpinner</span><span class="o">!!</span><span class="p">.</span><span class="n">adapter</span> <span class="p">=</span> <span class="n">adapter</span>   
+    <span class="n">chapterSpinner</span><span class="o">!!</span><span class="p">.</span><span class="n">onItemSelectedListener</span> <span class="p">=</span> <span class="kd">object</span> <span class="err">: </span><span class="nc">AdapterView</span><span class="p">.</span><span class="nc">OnItemSelectedListener</span> <span class="p">{</span>     
+           <span class="k">override</span> <span class="k">fun</span> <span class="nf">onItemSelected</span><span class="p">(</span><span class="n">adapterView</span><span class="p">:</span> <span class="nc">AdapterView</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;,</span> <span class="n">view</span><span class="p">:</span> <span class="nc">View</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nc">Long</span><span class="p">)</span> <span class="p">{</span>  
+            <span class="k">if</span> <span class="p">(</span><span class="n">position</span> <span class="p">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    
+                <span class="kd">val</span> <span class="py">chapterId</span> <span class="p">=</span> <span class="n">chaptersInBook</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">?.</span><span class="n">chapterid</span>   
+                <span class="kd">val</span> <span class="py">result</span> <span class="p">=</span> <span class="nf">displayVerseAndRespondToClicks</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  
+                
+                 <span class="nf">getVersesByChapter</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> 
+               <span class="p">}</span>      
+          <span class="p">}</span> 
+       <span class="k">override</span> <span class="k">fun</span> <span class="nf">onNothingSelected</span><span class="p">(</span><span class="n">adapterView</span><span class="p">:</span> <span class="nc">AdapterView</span><span class="p">&lt;</span><span class="err">*</span><span class="p">&gt;){</span>        <span class="p">}</span> 
+       
+          <span class="p">}</span>  
+      <span class="n">chapterSpinner</span><span class="o">!!</span><span class="p">.</span><span class="nf">setSelection</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      
+      <span class="p">}</span>
+</code></pre></div></div>
+
+<p>GetChapterByBookId is used by the bible spinner. An arrayAdapter is created with a dropdown view</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">adapter</span> <span class="p">=</span> <span class="nc">ArrayAdapter</span><span class="p">&lt;</span><span class="nc">BibleChapter</span><span class="p">&gt;(</span><span class="n">activity</span><span class="p">,</span> <span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_item</span><span class="p">,</span> <span class="n">chaptersInBook</span><span class="p">)</span>
+
+<span class="n">adapter</span><span class="p">.</span><span class="nf">setDropDownViewResource</span><span class="p">(</span><span class="n">android</span><span class="p">.</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">simple_spinner_dropdown_item</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>when the dropdown menu is clicked, we get the bookId for the book clicked  and the chapter id for the current chapter selected. We then get all the verses that belong to the chapters and set it to start from the  beginning.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">chapterId</span> <span class="p">=</span> <span class="n">chaptersInBook</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="o">?.</span><span class="n">chapteridval</span> <span class="n">result</span> <span class="p">=</span> <span class="nf">displayVerseAndRespondToClicks</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">//Start from the first </span>
+
+<span class="nf">versegetVersesByChapter</span><span class="p">(</span><span class="n">bookId</span><span class="p">,</span> <span class="n">chapterId</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span><span class="n">chapterSpinner</span><span class="o">!!</span><span class="p">.</span><span class="nf">setSelection</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The chapterId dropdown is similar to the bookId dropdown.</p>
+
+<p>When the verseId dropdown is clicked, it just scrolls to position.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">readBibleRecyclerView</span><span class="o">?.</span><span class="nf">scrollToPosition</span><span class="p">(</span><span class="n">verseId</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Conclusion.</strong></p>
+
+<p>We can see how this pattern ease our development and decouples the views  from the UI. The contract knows nothing about the native views (3  spinners and recyclerview). It only deals with what the view will need  to get from the model and the presenter is available to deliver the data to it.</p>
+
+<p>We can refactor our UI a million times. The only thing that will change is our Fragment and maybe BibleContract. View depending on the native  views we use and how complex we design our app flow. We will not have to rewrite the views every time we are using a new views with different  data access mechanisms.</p>
+
+<p>I hope you enjoyed the article.</p>
+
+        </div>
+
+        
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> MVP Pattern explained with a Kotlin Android App (Part 1)!
+
+      </span>
+    </a>
+  
+
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="copyright">
+    
+      <p>&copy; 2020 CoderAfrica. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+  </body>
+
+</html>

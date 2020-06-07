@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--
+    So Simple Jekyll Theme 3.2.0
+    Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+    Free for personal and commercial use under the MIT license
+    https://github.com/mmistakes/so-simple-theme/blob/master/LICENSE
+-->
+<html lang="en-US" class="no-js">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+
+  
+    
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MVP Pattern explained with a Kotlin Android App (Part 1)! | CoderAfrica</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="MVP Pattern explained with a Kotlin Android App (Part 1)!" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="http://localhost:4000/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html" />
+<meta property="og:url" content="http://localhost:4000/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html" />
+<meta property="og:site_name" content="CoderAfrica" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-04-22T21:39:49+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"MVP Pattern explained with a Kotlin Android App (Part 1)!","dateModified":"2018-04-22T21:39:49+01:00","datePublished":"2018-04-22T21:39:49+01:00","url":"http://localhost:4000/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/kotlin/2018/04/22/mvp-pattern-explained-with-a-kotlin-android-app-part-1.html"},"description":"Introduction","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  <script>
+    /* Cut the mustard */
+    if ( 'querySelector' in document && 'addEventListener' in window ) {
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + 'js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/skins/default.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i|Lora:400,400i,700,700i">
+  <link rel="alternate" type="application/atom+xml" title="CoderAfrica" href="/feed.xml">
+<!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+</head>
+
+
+  <body class="layout--post  mvp-pattern-explained-with-a-kotlin-android-app-part-1">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#primary-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+    <header class="masthead">
+  <div class="wrap">
+    
+    
+    
+      
+        <div class="site-title animated fadeIn"><a href="/">CoderAfrica</a></div>
+      
+      <p class="site-description animated fadeIn" itemprop="description">CoderAfrica Java Javascript AWS Docker Android Kubernetes</p>
+    
+  </div>
+</header><!-- /.masthead -->
+
+
+    <main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    
+
+    <div class="page-wrapper">
+      <header class="page-header">
+        
+        
+          <h1 id="page-title" class="page-title p-name">MVP Pattern explained with a Kotlin Android App (Part 1)!
+</h1>
+        
+      </header>
+
+      <div class="page-sidebar">
+        <div class="page-author h-card p-author"><div class="author-info">
+
+<span class="read-time">~1 min read</span>
+
+    <time class="page-date dt-published" datetime="2018-04-22T21:39:49+01:00"><a class="u-url" href="">April 22, 2018</a>
+</time>
+
+  </div>
+</div>
+
+        
+  <h3 class="page-taxonomies-title">Categories</h3>
+  <ul class="page-taxonomies"><li class="page-taxonomy">kotlin</li>
+  </ul>
+
+
+        
+
+      </div>
+
+      <div class="page-content">
+        <div class="e-content">
+          <p>Introduction</p>
+
+<p>Over the years, i have seen many implementations the MVP pattern in android projects. Here, i will introduce a pattern i have found to be useful in my projects.</p>
+
+<p>It is a highly opinionated implementation that depends on the use of certain libraries in android like Dagger2.</p>
+
+<p>What is MVP and Why should i care.</p>
+
+<p>MVP(Model View Presenter) is an architectural pattern that coordinates interactions between Models and Views via a Presenter.</p>
+
+<p>Android Views are tightly coupled with the data they display. Recyclerviews, viewpagers etc. expect adapters. Redesigning your UI or simply moving things around can require complete refactor of code everytime as a new View might have it own way of accepting and accessing data.</p>
+
+<p>Because of this, it is important to have a layer where you can manipulate your data and another where your layout the views and user interaction. This is what MVP provides.</p>
+
+<p>What we will be building.</p>
+
+<p>In this project, we will be building a bible app in Kotlin. The code is available on Github.</p>
+
+<p>In the next post, i will layout the app plan and explain how the app is implemented with the MVP pattern.</p>
+
+        </div>
+
+        
+
+        
+
+        <nav class="page-pagination" role="navigation">
+  
+    <a class="page-previous" href="/kotlin/2018/04/22/article-learn-kotlin-by-solving-problems.html">
+      <h4 class="page-pagination-label">Previous</h4>
+      <span class="page-pagination-title">
+        <i class="fas fa-arrow-left"></i> Learn Kotlin by solving problems!
+
+      </span>
+    </a>
+  
+
+  
+    <a class="page-next" href="/kotlin/2018/04/28/mvp-pattern-explained-with-kotlin-android-app-part-2.html">
+      <h4 class="page-pagination-label">Next</h4>
+      <span class="page-pagination-title">
+        MVP Pattern explained with a Kotlin Android App (Part 2)!
+ <i class="fas fa-arrow-right"></i>
+      </span>
+    </a>
+  
+</nav>
+
+      </div>
+    </div>
+  </article>
+</main>
+
+
+    <footer id="footer" class="site-footer">
+  <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<div class="copyright">
+    
+      <p>&copy; 2020 CoderAfrica. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/mmistakes/so-simple-theme" rel="nofollow">So Simple</a>.</p>
+    
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"></script>
+
+
+  </body>
+
+</html>

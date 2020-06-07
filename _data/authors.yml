@@ -1,0 +1,19 @@
+# Sample Authors
+# Remove file or replace with your own
+
+Ayodele Akingbule:
+  name: Ayodele Akingbule
+  picture: /images/author.jpg
+  twitter: "@gaspy05"
+  links:
+    - title: Twitter
+      url: https://twitter.com/gaspy05
+      icon: fab fa-twitter-square
+    - title: GitHub
+      url: https://github.com/ayogitng
+      icon: fab fa-github-square
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/akingbuleayodele/
+      icon: fab fa-github-linkedin
+
+
