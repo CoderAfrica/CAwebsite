@@ -25,7 +25,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://coderafrica.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: gaspy05
-github_username:  ayogitng
+github_username:  ayo-dele
 
 date_format: "%B %-d, %Y"
 read_time: true
@@ -111,7 +111,7 @@ author:
       url: https://twitter.com/gaspy05
       icon: fab fa-twitter-square
     - title: GitHub
-      url: https://github.com/ayogitng
+      url: https://github.com/ayo-dele
       icon: fab fa-github-square
     - title: LinkedIn
       url: https://www.linkedin.com/in/akingbuleayodele/
@@ -123,7 +123,7 @@ footer_links:
     url: https://twitter.com/gaspy05
     icon: fab fa-twitter-square
   - title: GitHub
-    url: https://github.com/ayogitng
+    url: https://github.com/ayo-dele
     icon: fab fa-github-square
   - title: LinkedIn
     url: https://www.linkedin.com/in/akingbuleayodele/
